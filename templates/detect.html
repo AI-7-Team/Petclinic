@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://code.jquery.com/jquery-1.8.0.js"
+            integrity="sha256-00Fh8tkPAe+EmVaHFpD+HovxWk7b97qwqVi7nLvjdgs="
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+    <title>증상탐지</title>
+
+    <div class="grid text-center">
+        <div class="row">
+            <div class="col">
+                <p></p>
+                📍 이미지 파일(JPG, JPEG, PNG)만 업로드가 가능합니다<br>
+                📍 샘플 이미지를 클릭하시면 샘플 이미지가 다운로드 됩니다<br>
+                🐾 업로드된 이미지와 결과 이미지는 저장되지 않습니다</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-md-6 detect">
+                <label class="sample-label">미란∙궤양 샘플</label>
+                <br>
+                <a href="/static/images/erosion_ulcer_sample1.jpg" download="erosion_ulcer_sample1.jpg"
+                   title="erosion_ulcer_sample1"><img class="sample-image img-fluid rounded"
+                                                      src="/static/images/erosion_ulcer_sample1.jpg" alt="미란_샘플1"></a>
+                <a href="/static/images/erosion_ulcer_sample2.jpg" download="erosion_ulcer_sample2.jpg"
+                   title="erosion_ulcer_sample2"><img class="sample-image img-fluid rounded"
+                                                      src="/static/images/erosion_ulcer_sample2.jpg" alt="미란_샘플2"></a>
+                <br>
+                <label class="sample-label">결절∙종괴 샘플</label>
+                <br>
+                <a href="/static/images/nodule_tumor_sample1.jpg" download="nodule_tumor_sample1.jpg"
+                   title="nodule_tumor_sample1"><img class="sample-image img-fluid rounded"
+                                                     src="/static/images/nodule_tumor_sample1.jpg"
+                                                     alt="결절_샘플2"></a>
+                <a href="/static/images/nodule_tumor_sample2.jpg" download="nodule_tumor_sample2.jpg"
+                   title="nodule_tumor_sample2"><img class="sample-image img-fluid rounded"
+                                                     src="/static/images/nodule_tumor_sample2.jpg"
+                                                     alt="결절_샘플2"></a>
+            </div>
+            <div class="col col-md-6 detect">
+                <form name="frm" action="/detect" method="POST" enctype="multipart/form-data">
+                    <label class="sample-label right">증상을 탐지할 파일을 선택해 주세요</label>
+                    <input class="form-control" type="file" id="imgUpload" name="file" id="formFile"
+                           onchange="readURL(this);"
+                            accept=".jpeg,.png,.jpg"
+                            required>
+                    <br>
+                    <img id="preview"/>
+                    <br>
+                    <button type="submit" id="submit" class="btn btn-danger submit-btn" onclick="loading()">SUBMIT</button>
+                </form>
+                <div id="process"></div>
+            </div>
+        </div>
+    </div>
+    <script defer src="/static/js/main.js"></script>
+
+{% endblock %}
