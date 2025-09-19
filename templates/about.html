@@ -21,10 +21,10 @@
             <div class="navbar collapse navbar-collapse justify-content-center">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#header"><strong>PETOM</strong></a>
+                        <a class="nav-link" href="#header"><strong>PetScan</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#one"><strong>YOLOv5</strong></a>
+                        <a class="nav-link" href="#one"><strong>ResNet</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#two"><strong>기대효과</strong></a>
@@ -40,12 +40,12 @@
     <!-- Header -->
     <section id="header">
         <div class="inner">
-            <img src="/static/images/favicon.svg" class="about-header-icon" >
+            <img src="/static/images/favicon.png" class="about-header-icon" >
 
-            <h1><strong>PETOM</strong>을 소개합니다<br>
-                Pet + 피부 질환의 증상 탐(tom)지</h1>
+            <h1><strong>PetScan</strong>을 소개합니다<br>
+                Pet + 피부 질환의 증상 진단(Scan)</h1>
             <p>AI로 반려동물의 피부 질환 증상을 탐지해보세요<br>
-                빠른 이미지 분석 모델인 YOLOv5을 이용하여 미란∙궤양, 결정∙종괴 증상을 탐지합니다</p>
+                빠른 이미지 분석 모델인 ResNet을 이용하여 피부 질환 증상을 탐지합니다</p>
             <p></p>
 
         </div>
@@ -57,21 +57,21 @@
             <div class="row gtr-150">
                 <div class="col-6 col-12-medium">
                     <header class="major">
-                        <h2><strong>YOLOv5</strong></h2><br>
-                        <h4>You Only Look Once</h4>
+                        <h2><strong>ResNet-50</strong></h2><br>
+                        <h4>Residual Network</h4>
                     </header>
-                    <p>YOLO는 이미지 전체를 한 번만 보고 탐지를 수행하여 다른 탐지모델(Object Detection Algorithm)과 비교했을 때 매우 빠른 처리 속도를 가지고
-                        있습니다.</p>
-                    <p>다양한 버전 중 2020년 6월에 출시된 Pytorch 기반의 YOLOv5는 이전 버전과 비교하여 쉽게 환경 구성이 가능하고 빠르게 구현이 가능한 장점이 있어 PETOM에서
-                        사용합니다.</p>
+                    <p>ResNet(Residual Network)은 잔차(Residual) 연결을 통해 매우 깊은 신경망도 안정적으로 학습시키는 이미지 분류/특징 추출 모델로,
+기존의 일반 CNN 대비 기울기 소실을 효과적으로 완화하여 더 빠른 수렴과 높은 정확도를 제공합니다.</p>
+                    <p>여러 변형 중 PyTorch 기반 ResNet(예: ResNet-50/101)은 사전학습 가중치가 풍부하고 환경 구성이 쉬워 전이학습과 백본으로 빠르게 적용할 수 있어
+PetScan에서 사용합니다.</p>
 
-                    🚀<a class="yolov5 icon-external right" href="https://github.com/ultralytics/yolov5"
+                    🚀<a class="yolov5 icon-external right" href="https://wikidocs.net/202619"
                          target="_blank">
-                    Yolov5 Github<i class="bi bi-arrow-up-right"></i>
+                    ResNet<i class="bi bi-arrow-up-right"></i>
                 </a>
                 </div>
                 <div class="col-6 col-12-medium imp-medium">
-                    <span class="image fit"><img src="/static/images/yolov5_logo.png" alt=""></span>
+                    <span class="image fit"><img src="static\images\resnet.png" alt=""></span>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="container">
             <div class="row gtr-150">
                 <div class="col-6 col-12-medium">
-                    <img src="/static/images/dog-skin.jpeg" 
+                    <img src="/static/images/dog-skin.jpg" 
                         class="dog-skin"
                      title="이미지 출처:https://wagwalking.com/condition/abnormal-skin-formation"
                     >
@@ -92,10 +92,9 @@
                         <h2><strong>기대효과</strong></h2><br>
                         <h4>반려동물을 위한 AI </h4>
                     </header>
-                    <p>Yolov5는 작은 물체(object) 탐지 정확도가 떨어져 제한적인 피부질환만 탐지할 수 있는 단점이 있으나 추후 모델을 개선한다면 다양한 종류의 피부질환 탐지 및 정확도
-                        개선이 기대됩니다.</p>
-                    <p>반려동물 피부질환을 보호자가 예비진단을 할 수 있어 치료기관 방문 여부의 기준이 될 수 있습니다.</p>
-                    <p>추후 모델 개선 및 다양한 기기에서 촬영한 이미지로 학습 시 전문 의료인의 진단을 보조하는 서비스로 확장이 기대됩니다.</p>
+                    <p>ResNet 기반 이미지 분류로 주요 피부질환을 신속히 예비진단하고, 전이학습·미세조정으로 정확도와 일반화를 지속 개선할 수 있습니다.</p>
+                    <p>Grad-CAM 등 시각화로 모델의 근거를 제시해 보호자의 신뢰를 높이고, 방문 필요성 판단에 실질적인 참고 지표를 제공합니다.</p>
+                    <p>데이터 다양화(기기·조명·각도)와 도메인 적응, 필요 시 경량 검출기와의 2단계(검출→분류) 결합을 통해 질환 카테고리 확장 및 의료진 보조 서비스로의 고도화가 가능합니다.</p>
                 </div>
             </div>
         </div>
@@ -107,7 +106,7 @@
             <header class="major">
                 <h2><strong>페이지 구성</strong></h2>
             </header>
-            <p><strong>PETOM</strong>의 페이지는 이렇게 이루어져 있습니다.</p>
+            <p><strong>PetScan</strong>의 페이지는 이렇게 이루어져 있습니다.</p>
             <div class="row gtr-150">
                 <div class="col-3 col-12-medium">
                     <span class="image fit three-image loading-img"><img src="/static/images/loading_icon.gif" alt="running cat.gif"></span>
@@ -151,14 +150,22 @@
 
     <!-- Footer -->
     <section id="footer">
-        <ul class="icons">
-            <li><a href="https://github.com/YuYeJi-Project/Petom" target="_blank"><i
-                    class="fa-brands fa-github fa-2x"></i></a></li>
-        </ul>
-        <ul class="copyright">
-            <li>Design: <a href="http://html5up.net/" target="_blank">HTML5 UP</a></li>
-        </ul>
+    <ul class="icons">
+        <li>
+        <a href="https://github.com/AI-7-Team/Petclinic" target="_blank" rel="noopener">
+            <i class="bi bi-github" aria-hidden="true"></i><span class="visually-hidden">GitHub</span>
+        </a>
+        </li>
+    </ul>
+
+    <!-- 해커톤 문구 -->
+    <div class="hackathon-badge">SW AI 해커톤 7 Team</div>
+
+    <ul class="copyright">
+        <li>&copy; <span id="year"></span> PetScan</li>
+    </ul>
     </section>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
     <!-- Scripts -->
 
