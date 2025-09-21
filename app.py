@@ -4,18 +4,18 @@ from PIL import Image
 from flask import Flask, render_template, request
 import torch.nn.functional as F
 from torchvision import transforms
-import base64  # 1. base64 라이브러리 추가
-
+import base64
+import datetime
 from AI.model import build_resnet50
 
 app = Flask(__name__, static_url_path='/static')
 
-# 2. 각 증상별 설명 데이터 추가
+# 각 증상별 설명 데이터
 descriptions = {
     'A4_농포_여드름': {
         'title': '농포 (Pustule) / 여드름 (Acne)',
         'description': '농포는 고름(농)을 포함하는 작은 융기입니다. 여드름의 한 형태로 나타날 수 있으며, 모낭의 염증이나 감염으로 인해 발생합니다. 반려동물의 경우 박테리아 감염의 신호일 수 있습니다.',
-        'image': '/static/images/result_sample_pustule.png' # 예시 이미지 경로
+        'image': '/static/images/result_sample_pustule.png'
     },
     'A5_미란_궤양': {
         'title': '미란 (Erosion) / 궤양 (Ulcer)',
@@ -29,7 +29,7 @@ descriptions = {
     }
 }
 
-# --- 1. ResNet 모델 로딩 ---
+# --- ResNet 모델 로딩 ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_PATH = 'models_train/resnet50_lesion.pth'
 
@@ -54,7 +54,7 @@ transform = transforms.Compose([
 
 print("✅ ResNet 모델 로딩 완료!")
 
-# --- 2. 라우트(Routes) 설정 ---
+# --- 라우트(Routes) 설정 ---
 
 @app.route('/')
 def index():
@@ -88,14 +88,12 @@ def detect():
             predicted_class = idx_to_class[predicted_idx]
             confidence = probabilities[0][predicted_idx].item() * 100
             
-            # 3. 예측된 클래스에 해당하는 설명 가져오기
             result_description = descriptions.get(predicted_class, {
                 'title': '알 수 없는 증상',
                 'description': '데이터베이스에 없는 증상입니다.',
                 'image': ''
             })
 
-            # 결과 페이지로 모든 정보 전달
             return render_template('result.html', 
                                    prediction=predicted_class,
                                    confidence=f"{confidence:.2f}%",
@@ -107,6 +105,32 @@ def detect():
             return render_template("detect.html", error="분석 중 오류가 발생했습니다.")
             
     return render_template("detect.html")
+
+# --- [수정된 부분] 커뮤니티 라우트 ---
+
+# 1. 커뮤니티 '목록' 페이지
+@app.route('/community')
+def community():
+    """커뮤니티 게시글 목록을 보여주는 페이지입니다."""
+    dummy_posts = [
+        {'id': 1, 'title': '첫 번째 글입니다', 'author': '관리자', 'create_date': datetime.datetime(2025, 9, 21)},
+        {'id': 2, 'title': 'Flask 게시판 만들기', 'author': '김코딩', 'create_date': datetime.datetime(2025, 9, 20)},
+    ]
+    return render_template('community.html', posts=dummy_posts)
+
+# 2. 게시글 '상세' 페이지
+@app.route('/post/<int:post_id>/')
+def detail(post_id):
+    """개별 게시글의 상세 내용을 보여주는 페이지입니다."""
+    # TODO: 나중에는 post_id를 이용해 데이터베이스에서 실제 데이터를 조회해야 합니다.
+    return f"게시글 상세 페이지입니다. (ID: {post_id})"
+# 3. [새로 추가] 게시글 '작성' 페이지
+@app.route('/post/create/')
+def create():
+    """새로운 게시글을 작성하는 페이지를 보여줍니다."""
+    # TODO: 나중에는 글쓰기 폼이 있는 HTML 템플릿을 render_template 해야 합니다.
+    return "게시글 작성 페이지입니다."
+# --- 나머지 라우트 ---
 
 @app.route('/hospital')
 def hospital():
