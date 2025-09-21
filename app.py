@@ -14,7 +14,7 @@ import json
 
 # --- 1. 초기 설정 및 환경변수 로딩 ---
 load_dotenv() # .env 파일에서 환경변수 로드
-
+print(DEVICE)
 app = Flask(__name__, static_url_path='/static')
 
 # OpenAI API 키 로딩
