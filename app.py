@@ -4,7 +4,12 @@ from PIL import Image
 from flask import Flask, render_template, request
 import torch.nn.functional as F
 from torchvision import transforms
-import base64  # 1. base64 라이브러리 추가
+import base64 
+import json
+
+# 예: GPT API로부터 받은 JSON 응답 문자열
+gpt_api_response = '{"summary": "이 내용은 요약입니다.", "advice": "이렇게 하세요."}'
+gpt_response = json.loads(gpt_api_response)  # 문자열 → 딕셔너리# 1. base64 라이브러리 추가
 
 from AI.model import build_resnet50
 
@@ -32,6 +37,7 @@ descriptions = {
 # --- 1. ResNet 모델 로딩 ---
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 MODEL_PATH = 'models_train/resnet50_lesion.pth'
+print(DEVICE)
 
 class_to_idx = {
     'A4_농포_여드름': 0,
@@ -100,7 +106,9 @@ def detect():
                                    prediction=predicted_class,
                                    confidence=f"{confidence:.2f}%",
                                    img_data=encoded_img_data,
-                                   description_data=result_description)
+                                   description_data=result_description,
+                                   gpt_response=gpt_response
+                                   )
         
         except Exception as e:
             print(f"Error during prediction: {e}")
