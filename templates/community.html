@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="card border-0 shadow-sm">
+        
+        <div class="card-header bg-light border-bottom d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">
+                <i class="bi bi-chat-left-text-fill me-2"></i><strong>커뮤니티 게시판</strong>
+            </h4>
+            <a href="{{ url_for('create') }}" class="btn btn-primary btn-sm">
+                <i class="bi bi-pencil-square me-1"></i>새 글 작성
+            </a>
+        </div>
+
+        <div class="card-body p-0">
+            {% if posts %}
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th scope="col" style="width: 10%;">번호</th>
+                            <th scope="col" style="width: 55%;">제목</th>
+                            <th scope="col" style="width: 15%;">글쓴이</th>
+                            <th scope="col" style="width: 20%;">작성일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                        <tr class="text-center align-middle">
+                            <td>{{ loop.index }}</td>
+                            <td class="text-start">
+                                <a href="{{ url_for('detail', post_id=post.id) }}" class="text-decoration-none link-dark fw-bold">
+                                    {{ post.title }}
+                                </a>
+                                </td>
+                            <td>
+                                <i class="bi bi-person-circle me-1 text-secondary"></i>{{ post.author }}
+                            </td>
+                            <td class="text-muted small">{{ post.create_date.strftime('%Y-%m-%d') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-exclamation-circle display-4 text-muted"></i>
+                <p class="mt-3 mb-0 text-muted">아직 작성된 게시글이 없습니다.</p>
+                <p class="text-muted">첫 번째 글을 작성해보세요!</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
