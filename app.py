@@ -14,6 +14,7 @@ import json
 
 # --- 1. 초기 설정 및 환경변수 로딩 ---
 load_dotenv() # .env 파일에서 환경변수 로드
+DEVICE = "DEVICE = CUDA" if torch.cuda.is_available() else "DEVICE = CPU"
 print(DEVICE)
 app = Flask(__name__, static_url_path='/static')
 
@@ -62,7 +63,7 @@ class_to_idx = {
 idx_to_class = {v: k for k, v in class_to_idx.items()}
 
 model = build_resnet50(num_classes=len(class_to_idx))
-model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
+model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE, weights_only=True))
 model = model.to(DEVICE)
 model.eval()
 
