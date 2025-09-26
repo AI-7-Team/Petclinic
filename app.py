@@ -167,17 +167,41 @@ def get_gpt_response():
         return jsonify({'error': '서버 처리 중 오류가 발생했습니다.'}), 500
 
 
-# --- 이하 라우트는 기존과 동일 ---
+# 커뮤니티 라우트
 @app.route('/community')
 def community():
-    # ...
-    return render_template('community.html', posts=[])
+    """커뮤니티 게시글 목록을 보여주는 페이지입니다."""
+    dummy_posts = [
+        {'id': 1, 'title': '첫 번째 글입니다', 'author': '관리자', 'create_date': datetime.datetime(2025, 9, 21), 'views': 15},
+        {'id': 2, 'title': 'Flask 게시판 만들기', 'author': '김코딩', 'create_date': datetime.datetime(2025, 9, 20),
+         'views': 42},
+    ]
+    return render_template('community.html', posts=dummy_posts)
 
-# ... (다른 라우트들) ...
+
+@app.route('/post/<int:post_id>/')
+def detail(post_id):
+    """개별 게시글의 상세 내용을 보여주는 페이지입니다."""
+    return f"게시글 상세 페이지입니다. (ID: {post_id})"
+
+
+@app.route('/post/create/')
+def create():
+    """새로운 게시글을 작성하는 페이지를 보여줍니다."""
+    return "게시글 작성 페이지입니다."
+
+
+# 병원 지도 및 404 에러 핸들러
+@app.route('/hospital')
+def hospital():
+    return render_template("hospital.html")
+
 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
 
+
+# --- 4. 앱 실행 ---
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
