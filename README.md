@@ -43,24 +43,19 @@ PetScan은 보호자가 반려동물의 피부 질환 사진을 업로드해서 
 
 ## 🛠️아키텍처
 
-<img width="1022" height="437" alt="Image" src="https://github.com/user-attachments/assets/5f373dc3-f8dd-4180-88ee-b60c9a09f341" />
-   
+<img width="940" height="539" alt="Image" src="https://github.com/user-attachments/assets/43cbee8d-6b6b-4728-9a4f-b67603a760bc" />
 
 
-1. 미란, 결절 증상을 탐지하도록 학습시킨 모델을 petom_weights.pt로 저장하여 프로젝트 내에서 로드하여 사용합니다.    
-2. EC2 인스턴스의 Flask 서버가 시작 될 때 모델을 로드하고 사용자가 업로드한 이미지를 byte형식으로 변환하고 이미지 파일로 읽습니다.
-3. 탐지 결과를 base64 형식으로 encode한 뒤 utf-8로 decode한 최종 결과를 결과 페이지에 전달하여 사용자가 탐지된 증상을 확인하게 됩니다.
-
-- Colab Notebook 환경에서 AIhub에서 제공하는 반려동물 피부 질환 이미지 데이터를 전처리한 후 YOLOv5의 모델 중 하나인 yolov5n모델에 훈련시켰습니다. 
-- 웹의 IP 주소를 petom.site 도메인과 연결시키기 위해 Route 53에 호스팅 영역을 생성해 DNS를 설정했습니다.   
-
+1. 업로드한 이미지를 flask 서버가 ResNet으로부터 결과를 얻음
+2. AI-Hub에서 받은 동물사진 데이터를 Check Point로 데이터를 학습시켜 라벨링하여 탐지 
+3. GPT로 추론을 수행후, jSON 응답을 Flask 프론트로 반환하는 아키텍쳐입니다.
 
 
 ## 🐾PetScan 페이지 구성
 
 **1. About**
 
-<img width="1282" height="699" alt="Image" src="https://github.com/user-attachments/assets/ee1447fd-1b85-4eaf-b082-ab3150f85430" />
+<img width="1535" height="742" alt="Image" src="https://github.com/user-attachments/assets/a87ecfcd-7b93-4ae4-b63d-5d6975b274f6" />
 
 
 |                        |  | 
@@ -86,7 +81,7 @@ PetScan은 보호자가 반려동물의 피부 질환 사진을 업로드해서 
 
 **3. 병원지도**
 
-<img src="https://user-images.githubusercontent.com/67316314/189904236-bf8f6ae7-c709-4c52-8cd0-71fad4d2c10e.gif" width="85%"/>   
+<img width="1547" height="822" alt="Image" src="https://github.com/user-attachments/assets/818faeeb-22ae-4c40-8a4d-5b9fda207b4e" /> 
 
 |                        |  | 
 | --------------- | -----------  |
